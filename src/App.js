@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
-import './App.css';
+import './App.scss';
 import firebase from './firebase';
-import Header from './components/common/Header';
+import Header from './components/common/Header/Header';
 import LoginContainer from './components/Login/LoginContainer';
-import Main from './components/Main/Main';
+import Main from './components/Main/Main/Main';
 import { authListener } from './redux/auth-reducer';
 import { connect } from 'react-redux';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import AddSong from './components/Main/AddSong';
+import AddSong from './components/Main/AddSong/AddSong';
 import SingleSongContainer from './components/Main/SingleSong/SingleSongContainer';
 import Settings from './components/Settings/Settings';
 

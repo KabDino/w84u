@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logout } from '../../redux/auth-reducer';
+import { logout } from '../../../redux/auth-reducer';
+import styles from './Menu.module.scss';
 
 const Menu = ({ song, handleDeleteSong, toggleEditSong, logout }) => {
   const [isOpenMenu, setIsOpenMenu] = useState('');
 
   const toggleMenu = () => {
-    isOpenMenu === 'is-menu-open'
+    let menuOpen = styles.isMenuOpen
+    isOpenMenu === menuOpen
       ? setIsOpenMenu('')
-      : setIsOpenMenu('is-menu-open');
+      : setIsOpenMenu(menuOpen);
   };
 
   const userLogout = () => {
@@ -17,10 +19,10 @@ const Menu = ({ song, handleDeleteSong, toggleEditSong, logout }) => {
   };
 
   return (
-    <div className={'menu-wrapper ' + isOpenMenu}>
-      <div className="menu">
+    <div className={styles.menuWrapper + ' ' + isOpenMenu}>
+      <div className={styles.menu}>
         <div
-          className="menu__icon"
+          className={styles.menu__icon}
           type="menu-fold"
           onClick={() => toggleMenu()}>
           <svg
@@ -33,9 +35,9 @@ const Menu = ({ song, handleDeleteSong, toggleEditSong, logout }) => {
           </svg>
         </div>
 
-        <nav className="menu__body">
-          <div className="menu__body-top">
-            <NavLink to="/" className="svg-button" onClick={() => toggleMenu()}>
+        <nav className={styles.menu__body}>
+          <div className={styles.menu__bodyTop}>
+            <NavLink to="/" className={styles.svgButton} onClick={() => toggleMenu()}>
               <svg
                 width="16"
                 height="19"
@@ -51,7 +53,7 @@ const Menu = ({ song, handleDeleteSong, toggleEditSong, logout }) => {
 
             <NavLink
               to="/add-song"
-              className="svg-button"
+              className={styles.svgButton}
               onClick={() => toggleMenu()}>
               <svg
                 width="20"
@@ -64,8 +66,8 @@ const Menu = ({ song, handleDeleteSong, toggleEditSong, logout }) => {
             </NavLink>
 
             {song && (
-              <div className="custom-menu">
-                <div onClick={toggleEditSong} className="svg-button">
+              <div className={styles.customMenu}>
+                <div onClick={toggleEditSong} className={styles.svgButton}>
                   <svg
                     width="24"
                     height="24"
@@ -85,7 +87,7 @@ const Menu = ({ song, handleDeleteSong, toggleEditSong, logout }) => {
 
                 <div
                   onClick={() => handleDeleteSong(song.id)}
-                  className="svg-button">
+                  className={styles.svgButton}>
                   <svg
                     width="24"
                     height="24"
@@ -103,7 +105,7 @@ const Menu = ({ song, handleDeleteSong, toggleEditSong, logout }) => {
 
             <NavLink
               to="/settings"
-              className="svg-button"
+              className={styles.svgButton}
               onClick={() => toggleMenu()}>
               <svg
                 width="20"
@@ -122,7 +124,7 @@ const Menu = ({ song, handleDeleteSong, toggleEditSong, logout }) => {
           </div>
 
           <div>
-            <div className="svg-button svg-button-logout" onClick={() => toggleMenu()}>
+            <div className={styles.svgButton + ' ' + styles.svgButtonLogout} onClick={() => toggleMenu()}>
               <svg
                 onClick={userLogout}
                 width="20"

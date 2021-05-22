@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { getSongs } from '../../redux/main-reducers';
+import { getSongs } from '../../../redux/main-reducers';
 import { Link } from 'react-router-dom';
-import Menu from '../common/Menu';
+import Menu from '../../common/Menu/Menu';
+import styles from './Main.module.scss';
 
 const Main = ({ songs, getSongs, isAuth }) => {
   useEffect(() => {
@@ -12,20 +13,20 @@ const Main = ({ songs, getSongs, isAuth }) => {
     <>
       {isAuth && <Menu isAuth={isAuth} />}
       <main className="main">
-        <div className="song-cards">
+        <div className="songCards">
           {songs.map((item) => (
-            <section key={item.id} className="song-cards__item">
+            <section key={item.id} className={styles.songCards__item}>
               <Link to={'/song-' + item.id}>
-                <div className="song-cards__item-image">
+                <div className={styles.songCards__itemImage}>
                   <img
                     src={item.image}
-                    className="little-image-for-card"
+                    className={styles.littleImageForCard}
                     alt="song"
                   />
                 </div>
-                <div className="song-cards__item-body">
-                  <p className="song-cards__item-title">{item.name}</p>
-                  <p className="song-cards__item-author">{item.author}</p>
+                <div className={styles.songCards__itemBody}>
+                  <p className={styles.songCards__itemTitle}>{item.name}</p>
+                  <p className={styles.songCards__itemAuthor}>{item.author}</p>
                 </div>
               </Link>
             </section>

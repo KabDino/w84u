@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { addNewSong } from '../../redux/main-reducers';
+import { addNewSong } from '../../../redux/main-reducers';
 import { Redirect } from 'react-router-dom';
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
+import { withAuthRedirect } from '../../../hoc/withAuthRedirect';
 import { compose } from 'redux';
 
 const AddSong = ({ addNewSong }) => {
@@ -39,8 +39,8 @@ const AddSong = ({ addNewSong }) => {
   }
 
   return (
-    <div className="container form-container">
-      <div className="some-inputs">
+    <div className="container formContainer">
+      <div className="someInputs">
         <div>
           <input
             className="input"

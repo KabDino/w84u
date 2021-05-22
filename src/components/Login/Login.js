@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './Login.module.scss'
 
 const Login = (props) => {
   const {
@@ -15,8 +16,8 @@ const Login = (props) => {
   } = props;
 
   return (
-    <section className="login">
-      <div className="loginContainer">
+    <section className={styles.login}>
+      <div className={styles.loginContainer}>
         <label>Username</label>
         <input
           type="text"
@@ -25,7 +26,7 @@ const Login = (props) => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <p className="errorMsg">{emailError}</p>
+        <p className={styles.errorMsg}>{emailError}</p>
 
         <label>Password</label>
         <input
@@ -34,9 +35,9 @@ const Login = (props) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <p className="errorMsg">{passwordError}</p>
+        <p className={styles.errorMsg}>{passwordError}</p>
 
-        <div className="btnContainer">
+        <div className={styles.btnContainer}>
           {hasAccount ? (
             <>
               <button onClick={handleLogin}>Sign in</button>

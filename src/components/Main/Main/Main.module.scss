@@ -1,0 +1,95 @@
+.songCards__item {
+  width: calc(25% - 14px);
+  min-height: 100px;
+  margin: 7px;
+  background: rgb(30, 30, 30);
+  box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.14);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: 0.15s;
+
+  &:hover {
+    background: #212121;
+    box-shadow: 0px 12px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  &:hover .littleImageForCard {
+    transform: scale(1.05);
+  }
+  
+  .littleImageForCard {
+    transition: 0.4s;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    height: 100%;
+  }
+
+  .songCards__itemImage {
+    width: 100px;
+    min-width: 100px;
+    height: 100%;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .littleImageForCard {
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.2s;
+  }
+
+  .songCards__itemBody {
+    padding: 15px;
+  }
+
+  .songCards__itemTitle {
+    margin-bottom: 10px;
+    line-height: 20px;
+    transition: 0.2s;
+  }
+
+  .songCards__itemAuthor {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+  }
+}
+
+@media (max-width: 1390px) {
+  .songCards__item {
+    width: calc(33.333% - 14px);
+  }
+}
+
+@media (max-width: 1090px) {
+  .songCards__item {
+    width: calc(50% - 14px);
+  }
+}
+
+@media (max-width: 720px) {
+  .songCards__item {
+    width: calc(100% - 14px);
+    min-height: 80px;
+
+    .songCards__itemImage {
+      width: 80px;
+      min-width: 80px;
+    }
+
+    .songCards__itemBody {
+      padding: 10px 15px 10px 10px;
+    }
+
+    .songCards__itemTitle {
+      font-size: 14px;
+      margin-bottom: 7px;
+    }
+  }
+}

@@ -8,7 +8,7 @@ import {
 } from '../../../redux/main-reducers';
 import SingleSong from './SingleSong';
 import EditSong from './EditSong';
-import Menu from '../../common/Menu';
+import Menu from '../../common/Menu/Menu';
 
 const SingleSongContainer = ({
   isAuth,

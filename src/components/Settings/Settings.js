@@ -17,8 +17,8 @@ const Settings = ({ changeName, name }) => {
 
   return (
     <>
-      <div className="container form-container">
-        <div className="some-inputs">
+      <div className="container formContainer">
+        <div className="someInputs">
           <div>
             <label>Изменить имя - {name}</label>
             <input

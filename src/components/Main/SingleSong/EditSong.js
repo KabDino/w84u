@@ -38,8 +38,8 @@ const EditSong = ({ song, toggleEditSong, editSong }) => {
   };
 
   return (
-    <div className="container form-container">
-      <div onClick={toggleEditSong} className="svg-button come-back">
+    <div className="container formContainer">
+      <div onClick={toggleEditSong} className="svgButton comeBack">
         <svg
           width="40"
           height="40"
@@ -59,7 +59,7 @@ const EditSong = ({ song, toggleEditSong, editSong }) => {
         </svg>
       </div>
 
-      <div className="some-inputs">
+      <div className="someInputs">
         <div>
           <label htmlFor="name">Название</label>
           <input
@@ -90,7 +90,7 @@ const EditSong = ({ song, toggleEditSong, editSong }) => {
         />
       </div>
 
-      <img src={image} className="little-image-for-card" alt="song" />
+      <img src={image} className="littleImageForCard" alt="song" />
       <input type="file" onChange={changeImage} />
 
       <div>

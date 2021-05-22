@@ -6,24 +6,24 @@ const SingleSong = ({ song, toggleEditSong, handleDeleteSong }) => {
       {/* <button onClick={toggleEditSong}>Edit</button> */}
       {/* <div onClick={() => handleDeleteSong(song.id)}>X</div> */}
 
-      <div className="header-single-song">
+      <div className="headerSingleSong">
       <img
           src={song.image}
-          className="header-single-song__image-background"
+          className="headerSingleSong__image-background"
           alt="song"
         />
         <img
           src={song.image}
-          className="header-single-song__image"
+          className="headerSingleSong__image"
           alt="song"
         />
         <div>
-          <p className="header-single-song__name">{song.name}</p>
-          <p className="header-single-song__author">{song.author}</p>
+          <p className="headerSingleSong__name">{song.name}</p>
+          <p className="headerSingleSong__author">{song.author}</p>
         </div>
       </div>
 
-      <div className="body-single-song">
+      <div className="bodySingleSong">
         <p>{song.text}</p>
       </div>
     </div>

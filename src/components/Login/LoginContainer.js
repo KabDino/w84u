@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import '../../App.css';
+import '../../App.scss';
 import firebase from '../../firebase';
 import Login from './Login';
 import { login, signup } from '../../redux/auth-reducer';
