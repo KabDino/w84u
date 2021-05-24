@@ -116,16 +116,16 @@ button {
     height: 100%;
     z-index: -1;
   }
+
+  .headerSingleSong__name {
+    margin: 5px 0 7px;
+    font-size: 20px;
+    font-weight: 600;
+  }
 }
 
 .bodySingleSong {
   padding: 30px;
-}
-
-.headerSingleSong__name {
-  margin: 5px 0 7px;
-  font-size: 20px;
-  font-weight: 600;
 }
 
 .container {

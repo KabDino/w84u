@@ -11,6 +11,8 @@ const AddSong = ({ addNewSong }) => {
   const [authorSong, setAuthorSong] = useState();
   const [isRedirect, setIsRedirect] = useState(false);
   const [imageAsFile, setImageAsFile] = useState('');
+  const [rowsInTextarea, setRowsInTextarea] = useState(9)
+  const [numberOfClickEnter, setNumberOfClickEnter] = useState(1);
 
   const setNewNameSong = (e) => {
     setNameSong(e.target.value);
@@ -22,6 +24,8 @@ const AddSong = ({ addNewSong }) => {
 
   const setNewTextSong = (e) => {
     setTextSong(e.target.value);
+    e.nativeEvent.inputType === 'insertLineBreak' && setNumberOfClickEnter(numberOfClickEnter + 1)
+    numberOfClickEnter > 9 && setRowsInTextarea(numberOfClickEnter + 1)
   };
 
   const handleImageAsFile = (e) => {
@@ -61,6 +65,7 @@ const AddSong = ({ addNewSong }) => {
       <div>
         <textarea
           className="input"
+          rows={rowsInTextarea}
           defaultValue={textSong}
           onChange={setNewTextSong}
           placeholder="Текст"

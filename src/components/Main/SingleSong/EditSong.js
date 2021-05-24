@@ -6,6 +6,8 @@ const EditSong = ({ song, toggleEditSong, editSong }) => {
   const [text, setText] = useState(null);
   const [image, setNewImage] = useState(null);
   const [isNewImage, setIsNewImage] = useState(false);
+  const [rowsInTextarea, setRowsInTextarea] = useState(9)
+  const [numberOfClickEnter, setNumberOfClickEnter] = useState(1);
 
   useEffect(() => {
     setName(song.name);
@@ -24,6 +26,8 @@ const EditSong = ({ song, toggleEditSong, editSong }) => {
 
   const setNewText = (e) => {
     setText(e.target.value);
+    e.nativeEvent.inputType === 'insertLineBreak' && setNumberOfClickEnter(numberOfClickEnter + 1)
+    numberOfClickEnter > 9 && setRowsInTextarea(numberOfClickEnter + 1)
   };
 
   const changeImage = (e) => {
@@ -84,6 +88,7 @@ const EditSong = ({ song, toggleEditSong, editSong }) => {
         <label htmlFor="text">Текст</label>
         <textarea
           id="text"
+          rows={rowsInTextarea}
           defaultValue={text}
           onChange={setNewText}
           className="input"
