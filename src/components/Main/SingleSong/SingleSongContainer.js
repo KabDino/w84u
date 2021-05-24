@@ -20,6 +20,8 @@ const SingleSongContainer = ({
   let { songId } = useParams();
   const [isEdit, setIsEdit] = useState(false);
   const [isRedirectOnMain, setIsRedirectOnMain] = useState(false);
+  const [tonality, setTonality] = useState(0);
+  const [transposedSong, setTransposedSong] = useState(null);
 
   const toggleEditSong = useCallback(() => {
     isEdit ? setIsEdit(false) : setIsEdit(true);
@@ -27,7 +29,47 @@ const SingleSongContainer = ({
 
   useEffect(() => {
     getSingleSong(songId);
-  }, [getSingleSong, songId, toggleEditSong, song]);
+    transposeSong(song.text);
+  }, [getSingleSong, songId, toggleEditSong, song.text, tonality]);
+
+  const transposeChord = (chord, amount) => {
+    let scale = [
+      'C',
+      'C#',
+      'D',
+      'D#',
+      'E',
+      'F',
+      'F#',
+      'G',
+      'G#',
+      'A',
+      'A#',
+      'H',
+    ];
+    return chord.replace(/[CDEFGAHB]#?/g, function (match) {
+      let i = (scale.indexOf(match) + amount) % 12;
+      return scale[i < 0 ? i + 12 : i];
+    });
+  };
+
+  const transposeSong = (song) => {
+    if (song) {
+      let newSong = song
+        .split('[')
+        .map((item) => {
+          return item.indexOf(']') !== -1
+            ? '<span class="chords">' +
+                transposeChord(item.split(']')[0], tonality) +
+                '</span>' +
+                item.split(']')[1]
+            : item;
+        })
+        .join('');
+      setTransposedSong(newSong);
+      console.log(tonality);
+    }
+  };
 
   const editSong = (newSong) => {
     updateSong(newSong);
@@ -36,6 +78,14 @@ const SingleSongContainer = ({
   const handleDeleteSong = (id) => {
     deleteSong(id);
     setIsRedirectOnMain(true);
+  };
+
+  const tonalityUp = () => {
+    setTonality(tonality + 1);
+  };
+
+  const tonalityDown = () => {
+    setTonality(tonality - 1);
   };
 
   if (isRedirectOnMain) {
@@ -47,6 +97,7 @@ const SingleSongContainer = ({
       {!isEdit ? (
         <SingleSong
           song={song}
+          songText={transposedSong}
           toggleEditSong={toggleEditSong}
           handleDeleteSong={handleDeleteSong}
         />
@@ -64,6 +115,9 @@ const SingleSongContainer = ({
           song={song}
           handleDeleteSong={handleDeleteSong}
           toggleEditSong={toggleEditSong}
+          tonalityUp={tonalityUp}
+          tonality={tonality}
+          tonalityDown={tonalityDown}
         />
       ) : (
         <Link to="/login" className="link">

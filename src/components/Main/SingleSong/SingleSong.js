@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SingleSong = ({ song, toggleEditSong, handleDeleteSong }) => {
+const SingleSong = ({ song, songText, toggleEditSong, handleDeleteSong }) => {
   return (
     <div>
       {/* <button onClick={toggleEditSong}>Edit</button> */}
@@ -24,7 +24,7 @@ const SingleSong = ({ song, toggleEditSong, handleDeleteSong }) => {
       </div>
 
       <div className="bodySingleSong">
-        <p>{song.text}</p>
+        <pre dangerouslySetInnerHTML={{__html: songText}}></pre>
       </div>
     </div>
   );

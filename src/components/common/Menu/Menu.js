@@ -4,14 +4,20 @@ import { connect } from 'react-redux';
 import { logout } from '../../../redux/auth-reducer';
 import styles from './Menu.module.scss';
 
-const Menu = ({ song, handleDeleteSong, toggleEditSong, logout }) => {
+const Menu = ({
+  song,
+  handleDeleteSong,
+  toggleEditSong,
+  logout,
+  tonality,
+  tonalityUp,
+  tonalityDown,
+}) => {
   const [isOpenMenu, setIsOpenMenu] = useState('');
 
   const toggleMenu = () => {
-    let menuOpen = styles.isMenuOpen
-    isOpenMenu === menuOpen
-      ? setIsOpenMenu('')
-      : setIsOpenMenu(menuOpen);
+    let menuOpen = styles.isMenuOpen;
+    isOpenMenu === menuOpen ? setIsOpenMenu('') : setIsOpenMenu(menuOpen);
   };
 
   const userLogout = () => {
@@ -37,7 +43,10 @@ const Menu = ({ song, handleDeleteSong, toggleEditSong, logout }) => {
 
         <nav className={styles.menu__body}>
           <div className={styles.menu__bodyTop}>
-            <NavLink to="/" className={styles.svgButton} onClick={() => toggleMenu()}>
+            <NavLink
+              to="/"
+              className={styles.svgButton}
+              onClick={() => toggleMenu()}>
               <svg
                 width="16"
                 height="19"
@@ -85,6 +94,41 @@ const Menu = ({ song, handleDeleteSong, toggleEditSong, logout }) => {
                   </svg>
                 </div>
 
+                <div onClick={tonalityUp} className={styles.svgButton}>
+                  <svg
+                    width="19"
+                    height="18"
+                    viewBox="0 0 19 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M14 7H16V10H19V12H16V15H14V12H11V10H14V7Z"
+                      fill="#BB86FC"
+                    />
+                    <path
+                      d="M6 0V9.28C5.53 9.11 5.03 9 4.5 9C2.01 9 0 11.01 0 13.5C0 15.99 2.01 18 4.5 18C6.81 18 8.7 16.25 8.95 14H9V3H13V0H6Z"
+                      fill="#BB86FC"
+                    />
+                  </svg>
+                </div>
+
+                <div className={styles.tonality}>{tonality}</div>
+
+                <div onClick={tonalityDown} className={styles.svgButton}>
+                  <svg
+                    width="19"
+                    height="18"
+                    viewBox="0 0 19 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 10H11V12H19V10Z" fill="#BB86FC" />
+                    <path
+                      d="M6 0V9.28C5.53 9.11 5.03 9 4.5 9C2.01 9 0 11.01 0 13.5C0 15.99 2.01 18 4.5 18C6.81 18 8.7 16.25 8.95 14H9V3H13V0H6Z"
+                      fill="#BB86FC"
+                    />
+                  </svg>
+                </div>
+
                 <div
                   onClick={() => handleDeleteSong(song.id)}
                   className={styles.svgButton}>
@@ -124,7 +168,9 @@ const Menu = ({ song, handleDeleteSong, toggleEditSong, logout }) => {
           </div>
 
           <div>
-            <div className={styles.svgButton + ' ' + styles.svgButtonLogout} onClick={() => toggleMenu()}>
+            <div
+              className={styles.svgButton + ' ' + styles.svgButtonLogout}
+              onClick={() => toggleMenu()}>
               <svg
                 onClick={userLogout}
                 width="20"
