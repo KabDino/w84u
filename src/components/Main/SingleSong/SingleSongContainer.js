@@ -67,7 +67,6 @@ const SingleSongContainer = ({
         })
         .join('');
       setTransposedSong(newSong);
-      console.log(tonality);
     }
   };
 
