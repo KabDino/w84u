@@ -7,8 +7,10 @@ import styles from './Main.module.scss';
 
 const Main = ({ songs, getSongs, isAuth }) => {
   useEffect(() => {
-    getSongs();
-  }, [songs]);
+    getSongs()
+  }, [getSongs]);
+// }, [songs]);
+
   return (
     <>
       {isAuth && <Menu isAuth={isAuth} />}

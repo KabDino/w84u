@@ -4,6 +4,7 @@ const ADD_NEW_SONG = 'ADD_NEW_SONG';
 const GET_SONGS = 'GET_SONGS';
 const DELETE_SONG = 'DELETE_SONG';
 const GET_SINGE_SONG = 'GET_SINGE_SONG';
+const TOGGLE_FETCHING = 'TOGGLE_FETCHING';
 
 let initialState = {
   songs: [],
@@ -38,6 +39,12 @@ const mainReducer = (state = initialState, action) => {
         singleSong: action.song,
       };
     }
+    case TOGGLE_FETCHING: {
+      return {
+        ...state,
+        isFetching: action.isFetching
+      }
+    }
     default:
       return state;
   }
@@ -58,10 +65,17 @@ const getSingleSongSuccess = (song) => ({
   song,
 });
 
+const toggleFetching = (isFetching) => ({
+  type: TOGGLE_FETCHING,
+  isFetching,
+})
+
 export const getSongs = () => {
   return (dispatch) => {
+    dispatch(toggleFetching(true))
     songsAPI.getSongs().then((response) => {
       dispatch(getSongsSuccess(Object.values(response.val())));
+      dispatch(toggleFetching(false))
     });
   };
 };
@@ -102,8 +116,10 @@ export const updateSong = (newSong) => {
 
 export const deleteSong = (id) => {
   return (dispatch) => {
+    dispatch(toggleFetching(true))
     songsAPI.deleteSong(String(id)).then(() => {
       dispatch(deleteSongSuccess(id));
+      dispatch(toggleFetching(false))
     });
   };
 };

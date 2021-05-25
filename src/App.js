@@ -10,8 +10,9 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import AddSong from './components/Main/AddSong/AddSong';
 import SingleSongContainer from './components/Main/SingleSong/SingleSongContainer';
 import Settings from './components/Settings/Settings';
+import Preloader from './components/common/Preloader';
 
-function App({ isAuth, authListener }) {
+function App({ isAuth, authListener, isFetching }) {
   useEffect(() => {
     const authListenerNew = () => {
       firebase.auth().onAuthStateChanged((user) => {
@@ -28,6 +29,8 @@ function App({ isAuth, authListener }) {
   return (
     <BrowserRouter>
       <Header isAuth={isAuth} />
+      {isFetching && <Preloader />}
+
       <div className="App">
         <Switch>
           <Route path="/add-song">
@@ -53,6 +56,7 @@ function App({ isAuth, authListener }) {
 
 const mapStateToProps = (state) => ({
   isAuth: state.authReducer.isAuth,
+  isFetching: state.mainReducer.isFetching,
 });
 
 export default connect(mapStateToProps, { authListener })(App);
