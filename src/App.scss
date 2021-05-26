@@ -122,6 +122,12 @@ button {
     font-size: 20px;
     font-weight: 600;
   }
+
+  .headerSingleSong__text {
+    margin-bottom: 2px;
+    font-size: 14px;
+    line-height: 18px;
+  }
 }
 
 .bodySingleSong {
@@ -143,7 +149,7 @@ button {
 .formContainer {
   input,
   textarea {
-    padding: 15px 30px;
+    padding: 15px 20px;
     margin: 0 0 20px;
     border: 1px solid transparent;
     border-radius: 10px;
@@ -165,8 +171,9 @@ button {
 
   label {
     display: block;
-    padding: 5px 30px;
+    padding: 5px 20px;
     font-size: 14px;
+    white-space: nowrap;
     color: #9c9c9c;
   }
 }
@@ -177,6 +184,16 @@ button {
   align-items: center;
 
   & > div {
+    width: calc(40% - 10px);
+  }
+
+  .littleInputsContainer {
+    display: flex;
+    justify-content: space-between;
+    width: calc(20% - 20px);
+  }
+
+  .littleInputs {
     width: calc(50% - 10px);
   }
 
@@ -230,6 +247,21 @@ button {
     padding: 0 20px;
     margin: 30px 0;
   }
+
+  .someInputs {
+    flex-direction: column;
+    & > div {
+      width: 100%;
+    }
+
+    .littleInputsContainer {
+      width: 100%;
+    }
+
+    .littleInputs {
+      width: calc(50% - 7.5px);
+    }
+  }
 }
 
 @media (max-width: 720px) {
@@ -253,13 +285,6 @@ button {
 
   .bodySingleSong {
     padding: 15px 10px;
-  }
-
-  .someInputs {
-    flex-direction: column;
-    & > div {
-      width: 100%;
-    }
   }
 
   .container {

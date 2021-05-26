@@ -8,13 +8,15 @@ export const songsAPI = {
     // return db.collection('songs').get();
     return database.ref(`songs`).once('value');
   },
-  addSong(id, nameSong, authorSong, textSong, imageForSong) {
+  addSong(id, nameSong, authorSong, tonalitySong, tempSong, textSong, imageForSong) {
     // return db.collection('songs').doc(String(newSong.id)).set(newSong);
     return database.ref('songs/' + String(id)).set({
       id: id,
       name: nameSong,
       text: textSong,
       author: authorSong,
+      tonality: tonalitySong,
+      temp: tempSong,
       image: imageForSong,
     });
   },

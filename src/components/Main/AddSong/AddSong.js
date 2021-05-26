@@ -11,8 +11,10 @@ const AddSong = ({ addNewSong }) => {
   const [authorSong, setAuthorSong] = useState();
   const [isRedirect, setIsRedirect] = useState(false);
   const [imageAsFile, setImageAsFile] = useState('');
-  const [rowsInTextarea, setRowsInTextarea] = useState(9)
+  const [rowsInTextarea, setRowsInTextarea] = useState(9);
   const [numberOfClickEnter, setNumberOfClickEnter] = useState(1);
+  const [tonalitySong, setTonalitySong] = useState();
+  const [tempSong, setTempSong] = useState();
 
   const setNewNameSong = (e) => {
     setNameSong(e.target.value);
@@ -22,10 +24,19 @@ const AddSong = ({ addNewSong }) => {
     setAuthorSong(e.target.value);
   };
 
+  const setNewTonalitySong = (e) => {
+    setTonalitySong(e.target.value);
+  };
+
+  const setNewTempSong = (e) => {
+    setTempSong(e.target.value);
+  };
+
   const setNewTextSong = (e) => {
     setTextSong(e.target.value);
-    e.nativeEvent.inputType === 'insertLineBreak' && setNumberOfClickEnter(numberOfClickEnter + 1)
-    numberOfClickEnter > 9 && setRowsInTextarea(numberOfClickEnter + 1)
+    e.nativeEvent.inputType === 'insertLineBreak' &&
+      setNumberOfClickEnter(numberOfClickEnter + 1);
+    numberOfClickEnter > 9 && setRowsInTextarea(numberOfClickEnter + 1);
   };
 
   const handleImageAsFile = (e) => {
@@ -34,7 +45,14 @@ const AddSong = ({ addNewSong }) => {
   };
 
   const sendNewData = () => {
-    addNewSong(nameSong, authorSong, textSong, imageAsFile);
+    addNewSong(
+      nameSong,
+      authorSong,
+      tonalitySong,
+      tempSong,
+      textSong,
+      imageAsFile
+    );
     setIsRedirect(true);
   };
 
@@ -60,6 +78,25 @@ const AddSong = ({ addNewSong }) => {
             onChange={setNewAuthorSong}
             placeholder="Исполнитель"
           />
+        </div>
+
+        <div className="littleInputsContainer">
+          <div className="littleInputs">
+            <input
+              className="input"
+              defaultValue={tonalitySong}
+              onChange={setNewTonalitySong}
+              placeholder="Тон-сть"
+            />
+          </div>
+          <div className="littleInputs">
+            <input
+              className="input"
+              defaultValue={tempSong}
+              onChange={setNewTempSong}
+              placeholder="Темп"
+            />
+          </div>
         </div>
       </div>
       <div>

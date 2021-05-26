@@ -6,15 +6,19 @@ const EditSong = ({ song, toggleEditSong, editSong }) => {
   const [text, setText] = useState(null);
   const [image, setNewImage] = useState(null);
   const [isNewImage, setIsNewImage] = useState(false);
-  const [rowsInTextarea, setRowsInTextarea] = useState(9)
+  const [rowsInTextarea, setRowsInTextarea] = useState(9);
   const [numberOfClickEnter, setNumberOfClickEnter] = useState(1);
+  const [tonalitySong, setTonalitySong] = useState(null);
+  const [tempSong, setTempSong] = useState(null);
 
   useEffect(() => {
     setName(song.name);
     setAuthor(song.author);
     setText(song.text);
     setNewImage(song.image);
-  }, [song.name, song.author, song.text, song.image]);
+    setTonalitySong(song.tonality);
+    setTempSong(song.temp);
+  }, [song.name, song.author, song.tonality, song.temp, song.text, song.image]);
 
   const setNewName = (e) => {
     setName(e.target.value);
@@ -24,10 +28,19 @@ const EditSong = ({ song, toggleEditSong, editSong }) => {
     setAuthor(e.target.value);
   };
 
+  const setNewTonality = (e) => {
+    setTonalitySong(e.target.value);
+  };
+
+  const setNewTemp = (e) => {
+    setTempSong(e.target.value);
+  };
+
   const setNewText = (e) => {
     setText(e.target.value);
-    e.nativeEvent.inputType === 'insertLineBreak' && setNumberOfClickEnter(numberOfClickEnter + 1)
-    numberOfClickEnter > 9 && setRowsInTextarea(numberOfClickEnter + 1)
+    e.nativeEvent.inputType === 'insertLineBreak' &&
+      setNumberOfClickEnter(numberOfClickEnter + 1);
+    numberOfClickEnter > 9 && setRowsInTextarea(numberOfClickEnter + 1);
   };
 
   const changeImage = (e) => {
@@ -36,7 +49,16 @@ const EditSong = ({ song, toggleEditSong, editSong }) => {
   };
 
   const updateSong = () => {
-    let newSong = { id: song.id, name, author, text, image, isNewImage };
+    let newSong = {
+      id: song.id,
+      name,
+      author,
+      tonality: tonalitySong + ' ' || '',
+      temp: tempSong + ' ' || '',
+      text,
+      image,
+      isNewImage,
+    };
     editSong(newSong);
     toggleEditSong();
   };
@@ -81,6 +103,25 @@ const EditSong = ({ song, toggleEditSong, editSong }) => {
             onChange={setNewAuthor}
             className="input"
           />
+        </div>
+
+        <div className="littleInputsContainer">
+          <div className="littleInputs">
+            <label htmlFor="author">Тон-сть</label>
+            <input
+              className="input"
+              defaultValue={tonalitySong}
+              onChange={setNewTonality}
+            />
+          </div>
+          <div className="littleInputs">
+            <label htmlFor="author">Темп</label>
+            <input
+              className="input"
+              defaultValue={tempSong}
+              onChange={setNewTemp}
+            />
+          </div>
         </div>
       </div>
 

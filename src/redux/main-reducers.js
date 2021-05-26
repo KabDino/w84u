@@ -80,17 +80,17 @@ export const getSongs = () => {
   };
 };
 
-export const addNewSong = (nameSong, authorSong, textSong, imageAsFile) => {
+export const addNewSong = (nameSong, authorSong, tonalitySong, tempSong, textSong, imageAsFile) => {
   let id = new Date().getTime();
   if (imageAsFile !== '') {
     return async () => {
       let imageForSong = await songsAPI.onloadImageSong(imageAsFile);
-      songsAPI.addSong(id, nameSong, authorSong, textSong, imageForSong);
+      songsAPI.addSong(id, nameSong, authorSong, tonalitySong, tempSong, textSong, imageForSong);
     };
   } else {
     let fakeURL =
       'https://firebasestorage.googleapis.com/v0/b/liteworship.appspot.com/o/images%2Fno-image.svg?alt=media&token=8da6e4eb-104a-42ae-bd37-c93c527c4a9b';
-    return async () => songsAPI.addSong(id, nameSong, authorSong, textSong, fakeURL);
+    return async () => songsAPI.addSong(id, nameSong, authorSong, tonalitySong, tempSong, textSong, fakeURL);
   }
 };
 
