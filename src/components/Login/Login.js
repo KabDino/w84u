@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Login.module.scss'
+import styles from './Login.module.scss';
 
 const Login = (props) => {
   const {
@@ -11,8 +11,8 @@ const Login = (props) => {
     handleSignUp,
     hasAccount,
     setHasAccount,
-    emailError,
-    passwordError,
+    isEmailError,
+    isPasswordError,
   } = props;
 
   return (
@@ -26,7 +26,11 @@ const Login = (props) => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <p className={styles.errorMsg}>{emailError}</p>
+        {isEmailError ? (
+          <p className={styles.errorMsg}>
+            Не правильный формат Mail (либо уже используется)
+          </p>
+        ) : null}
 
         <label>Password</label>
         <input
@@ -35,18 +39,28 @@ const Login = (props) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <p className={styles.errorMsg}>{passwordError}</p>
+        {isPasswordError ? (
+          <p className={styles.errorMsg}>
+            Неправильный пароль (Должен содержать 6 и более символов)
+          </p>
+        ) : null}
 
         <div className={styles.btnContainer}>
           {hasAccount ? (
             <>
               <button onClick={handleLogin}>Sign in</button>
-              <p>Don't have an account? <span onClick={() => setHasAccount(!hasAccount)}>Sign up</span></p>
+              <p>
+                Don't have an account?{' '}
+                <span onClick={() => setHasAccount(!hasAccount)}>Sign up</span>
+              </p>
             </>
           ) : (
             <>
               <button onClick={handleSignUp}>Sign up</button>
-              <p>Have an account? <span onClick={() => setHasAccount(!hasAccount)}>Sign in</span></p>
+              <p>
+                Have an account?{' '}
+                <span onClick={() => setHasAccount(!hasAccount)}>Sign in</span>
+              </p>
             </>
           )}
         </div>

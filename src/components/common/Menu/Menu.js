@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../../redux/auth-reducer';
 import styles from './Menu.module.scss';
+import Modal from '../Modal/Modal';
 
 const Menu = ({
   song,
@@ -14,6 +15,7 @@ const Menu = ({
   tonalityDown,
 }) => {
   const [isOpenMenu, setIsOpenMenu] = useState('');
+  const [isVisibleModalForDelete, setIsVisibleModalForDelete] = useState(false);
 
   const toggleMenu = () => {
     let menuOpen = styles.isMenuOpen;
@@ -22,6 +24,14 @@ const Menu = ({
 
   const userLogout = () => {
     logout();
+  };
+
+  const toggleModalForDeleting = () => {
+    setIsVisibleModalForDelete(!isVisibleModalForDelete)
+  }
+
+  const deleteSong = () => {
+    handleDeleteSong(song.id);
   };
 
   return (
@@ -75,76 +85,86 @@ const Menu = ({
             </NavLink>
 
             {song && (
-              <div className={styles.customMenu}>
-                <div onClick={toggleEditSong} className={styles.svgButton}>
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M14.9833 5.48122L3.66957 16.7949L3.42466 19.4889C3.36812 20.1109 3.88915 20.6319 4.51109 20.5754L7.2051 20.3304L18.5188 9.01675L14.9833 5.48122Z"
-                      fill="#BB86FC"
-                    />
-                    <path
-                      d="M19.2259 8.30964L21.3472 6.18831C21.7378 5.79778 21.7378 5.16462 21.3472 4.77409L19.2259 2.65277C18.8354 2.26225 18.2022 2.26225 17.8117 2.65277L15.6904 4.77411L19.2259 8.30964Z"
-                      fill="#BB86FC"
-                    />
-                  </svg>
+              <>
+                <div className={styles.customMenu}>
+                  <div onClick={toggleEditSong} className={styles.svgButton}>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M14.9833 5.48122L3.66957 16.7949L3.42466 19.4889C3.36812 20.1109 3.88915 20.6319 4.51109 20.5754L7.2051 20.3304L18.5188 9.01675L14.9833 5.48122Z"
+                        fill="#BB86FC"
+                      />
+                      <path
+                        d="M19.2259 8.30964L21.3472 6.18831C21.7378 5.79778 21.7378 5.16462 21.3472 4.77409L19.2259 2.65277C18.8354 2.26225 18.2022 2.26225 17.8117 2.65277L15.6904 4.77411L19.2259 8.30964Z"
+                        fill="#BB86FC"
+                      />
+                    </svg>
+                  </div>
+
+                  <div onClick={tonalityUp} className={styles.svgButton}>
+                    <svg
+                      width="19"
+                      height="18"
+                      viewBox="0 0 19 18"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M14 7H16V10H19V12H16V15H14V12H11V10H14V7Z"
+                        fill="#BB86FC"
+                      />
+                      <path
+                        d="M6 0V9.28C5.53 9.11 5.03 9 4.5 9C2.01 9 0 11.01 0 13.5C0 15.99 2.01 18 4.5 18C6.81 18 8.7 16.25 8.95 14H9V3H13V0H6Z"
+                        fill="#BB86FC"
+                      />
+                    </svg>
+                  </div>
+
+                  <div className={styles.tonality}>{tonality}</div>
+
+                  <div onClick={tonalityDown} className={styles.svgButton}>
+                    <svg
+                      width="19"
+                      height="18"
+                      viewBox="0 0 19 18"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path d="M19 10H11V12H19V10Z" fill="#BB86FC" />
+                      <path
+                        d="M6 0V9.28C5.53 9.11 5.03 9 4.5 9C2.01 9 0 11.01 0 13.5C0 15.99 2.01 18 4.5 18C6.81 18 8.7 16.25 8.95 14H9V3H13V0H6Z"
+                        fill="#BB86FC"
+                      />
+                    </svg>
+                  </div>
+
+                  <div
+                    onClick={() => toggleModalForDeleting()}
+                    className={styles.svgButton}>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M15 2H9C7.897 2 7 2.897 7 4V5H3V7H5V20C5 21.103 5.897 22 7 22H17C18.103 22 19 21.103 19 20V7H21V5H17V4C17 2.897 16.103 2 15 2ZM9 4H15V5H9V4ZM17 20H7V7H17V20Z"
+                        fill="#BB86FC"
+                      />
+                    </svg>
+                  </div>
                 </div>
 
-                <div onClick={tonalityUp} className={styles.svgButton}>
-                  <svg
-                    width="19"
-                    height="18"
-                    viewBox="0 0 19 18"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M14 7H16V10H19V12H16V15H14V12H11V10H14V7Z"
-                      fill="#BB86FC"
-                    />
-                    <path
-                      d="M6 0V9.28C5.53 9.11 5.03 9 4.5 9C2.01 9 0 11.01 0 13.5C0 15.99 2.01 18 4.5 18C6.81 18 8.7 16.25 8.95 14H9V3H13V0H6Z"
-                      fill="#BB86FC"
-                    />
-                  </svg>
-                </div>
-
-                <div className={styles.tonality}>{tonality}</div>
-
-                <div onClick={tonalityDown} className={styles.svgButton}>
-                  <svg
-                    width="19"
-                    height="18"
-                    viewBox="0 0 19 18"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path d="M19 10H11V12H19V10Z" fill="#BB86FC" />
-                    <path
-                      d="M6 0V9.28C5.53 9.11 5.03 9 4.5 9C2.01 9 0 11.01 0 13.5C0 15.99 2.01 18 4.5 18C6.81 18 8.7 16.25 8.95 14H9V3H13V0H6Z"
-                      fill="#BB86FC"
-                    />
-                  </svg>
-                </div>
-
-                <div
-                  onClick={() => handleDeleteSong(song.id)}
-                  className={styles.svgButton}>
-                  <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                      d="M15 2H9C7.897 2 7 2.897 7 4V5H3V7H5V20C5 21.103 5.897 22 7 22H17C18.103 22 19 21.103 19 20V7H21V5H17V4C17 2.897 16.103 2 15 2ZM9 4H15V5H9V4ZM17 20H7V7H17V20Z"
-                      fill="#BB86FC"
-                    />
-                  </svg>
-                </div>
-              </div>
+                {isVisibleModalForDelete && (
+                  <Modal
+                    text="Вы точно хотите удалить песню?"
+                    positiveHandler={deleteSong}
+                    negativeHandler={toggleModalForDeleting}
+                  />
+                )}
+              </>
             )}
 
             <NavLink

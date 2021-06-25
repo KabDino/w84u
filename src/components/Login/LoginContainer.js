@@ -6,11 +6,15 @@ import Login from './Login';
 import { login, signup } from '../../redux/auth-reducer';
 import { Redirect } from 'react-router-dom';
 
-function LoginContainer({ isAuth, login, signup }) {
+function LoginContainer({
+  isAuth,
+  login,
+  signup,
+  isEmailError,
+  isPasswordError,
+}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
   const [hasAccount, setHasAccount] = useState(true);
 
   var userBase = firebase.auth().currentUser;
@@ -24,23 +28,11 @@ function LoginContainer({ isAuth, login, signup }) {
     //   uid = userBase.uid;
   }
 
-  // const clearInputs = () => {
-  //   setEmail('');
-  //   setPassword('');
-  // };
-
-  const clearErrors = () => {
-    setEmailError('');
-    setPasswordError('');
-  };
-
   const handleLogin = () => {
-    clearErrors();
-    login(email, password)
+    login(email, password);
   };
 
   const handleSignUp = () => {
-    clearErrors();
     signup(email, password);
   };
 
@@ -59,15 +51,17 @@ function LoginContainer({ isAuth, login, signup }) {
         handleSignUp={handleSignUp}
         hasAccount={hasAccount}
         setHasAccount={setHasAccount}
-        emailError={emailError}
-        passwordError={passwordError}
+        isEmailError={isEmailError}
+        isPasswordError={isPasswordError}
       />
     </div>
   );
 }
 
 const mapStateToProps = (state) => ({
-  isAuth: state.authReducer.isAuth
-})
+  isAuth: state.authReducer.isAuth,
+  isEmailError: state.authReducer.isEmailError,
+  isPasswordError: state.authReducer.isPasswordError,
+});
 
 export default connect(mapStateToProps, { login, signup })(LoginContainer);
