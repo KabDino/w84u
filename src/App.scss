@@ -14,6 +14,10 @@ body {
   color: black;
 }
 
+// src/App.scss
+// src/components/common/Modal/Modal.js
+// src/components/common/Modal/Modal.module.scss
+
 button {
   width: fit-content;
   padding: 15px 30px;
@@ -21,6 +25,7 @@ button {
   border: none;
   outline: none;
   color: #ffffff;
+  font-weight: 600;
   font-size: 16px;
   letter-spacing: 1px;
   /* background: linear-gradient(270deg, #ce43ff 0%, #4136f1 100%); */
