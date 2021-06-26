@@ -2,54 +2,13 @@ import firebase from '../firebase';
 
 export const authAPI = {
   login(email, password) {
-    return firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      // .catch((err) => {
-      //   switch (err.code) {
-      //     case 'auth/invalid-email':
-      //     case 'auth/user-disabled':
-      //     case 'auth/user-not-found':
-      //       // setEmailError(err.message);
-      //       break;
-      //     case 'auth/wrong-password':
-      //       // setPasswordError(err.message);
-      //       break;
-      //     default:
-      //       break;
-      //   }
-      // });
+    return firebase.auth().signInWithEmailAndPassword(email, password);
   },
   signup(email, password) {
-    return firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      // .catch((err) => {
-      //   switch (err.code) {
-      //     case 'auth/email-already-in-use':
-      //     case 'auth/invalid-email':
-      //       // setEmailError(err.message);
-      //       break;
-      //     case 'auth/weak-password':
-      //       // setPasswordError(err.message);
-      //       break;
-      //     default:
-      //       break;
-      //   }
-      // });
+    return firebase.auth().createUserWithEmailAndPassword(email, password);
   },
-  authListener(ok, no) {
-    return firebase.auth().onIdTokenChanged((user) => {
-      if (user) {
-        ok();
-      } else {
-        no();
-      }
-    });
-    // firebase.auth().onAuthStateChanged((user) => {
-    //   debugger
-    //   return !!user ? true : false;
-    // });
+  async authListener() {
+    return await firebase.auth();
   },
   logout() {
     return firebase.auth().signOut();

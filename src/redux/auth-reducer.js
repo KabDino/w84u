@@ -190,9 +190,17 @@ export const signup = (email, password, name) => {
   };
 };
 
-export const authListener = (value) => {
+export const authListener = () => {
   return (dispatch) => {
-    dispatch(authListenerSuccess(value));
+    authAPI.authListener().then((response) => {
+      response.onIdTokenChanged((user) => {
+        if (user) {
+          dispatch(authListenerSuccess(true));
+        } else {
+          dispatch(authListenerSuccess(false));
+        }
+      });
+    });
   };
 };
 

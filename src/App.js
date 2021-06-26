@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import './App.scss';
-import firebase from './firebase';
 import Header from './components/common/Header/Header';
 import LoginContainer from './components/Login/LoginContainer';
 import Main from './components/Main/Main/Main';
@@ -14,17 +13,8 @@ import Preloader from './components/common/Preloader';
 
 function App({ isAuth, authListener, isFetching }) {
   useEffect(() => {
-    const authListenerNew = () => {
-      firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-          authListener(true);
-        } else {
-          authListener(false);
-        }
-      });
-    };
-    authListenerNew();
-  }, [authListener]);
+    authListener();
+  });
 
   return (
     <BrowserRouter>

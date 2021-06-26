@@ -119,9 +119,10 @@ const SingleSongContainer = ({
           tonalityDown={tonalityDown}
         />
       ) : (
-        <Link to="/login" className="link">
-          Войти
-        </Link>
+        null
+        // <Link to="/login" className="link">
+        //   Войти
+        // </Link>
       )}
     </div>
   );
