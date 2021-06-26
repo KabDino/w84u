@@ -142,7 +142,6 @@ export const login = (email, password) => {
       .login(email, password)
       .then((response) => {
         let uInfo = response.user;
-        console.log(uInfo);
         dispatch(userInSuccess(uInfo.uid, uInfo.displayName, uInfo.email));
       })
       .catch((err) => {

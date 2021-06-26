@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { changeName } from '../../redux/profile-reducer';
+import { getName, changeName } from '../../redux/profile-reducer';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
 
-const Settings = ({ changeName, name }) => {
+const Settings = ({ getName, changeName, name }) => {
   const [newName, setNewName] = useState();
+
+  useEffect(() => {
+    getName();
+  });
 
   const catchNewName = (e) => {
     setNewName(e.target.value);
@@ -46,10 +50,9 @@ let mapStateToProps = (state) => ({
 // );
 
 export default compose(
-  connect(mapStateToProps, { changeName }),
+  connect(mapStateToProps, { changeName, getName }),
   withAuthRedirect
 )(Settings);
-
 
 /*
 const LoginScreen = () => {

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import '../../App.scss';
-import firebase from '../../firebase';
 import Login from './Login';
 import { login, signup } from '../../redux/auth-reducer';
 import { Redirect } from 'react-router-dom';
@@ -17,17 +16,6 @@ function LoginContainer({
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [hasAccount, setHasAccount] = useState(true);
-
-  var userBase = firebase.auth().currentUser;
-
-  if (userBase != null) {
-    // console.log(userBase.displayName);
-    //   name = userBase.displayName;
-    //   userEmail = userBase.email;
-    //   photoUrl = userBase.photoURL;
-    //   emailVerified = userBase.emailVerified;
-    //   uid = userBase.uid;
-  }
 
   const handleLogin = () => {
     login(email, password);
