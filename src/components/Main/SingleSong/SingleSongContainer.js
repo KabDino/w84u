@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { connect } from 'react-redux';
-import { Redirect, useParams, Link } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import {
   getSingleSong,
   updateSong,
@@ -28,6 +28,23 @@ const SingleSongContainer = ({
   }, [isEdit]);
 
   useEffect(() => {
+    const transposeSong = (song) => {
+      if (song) {
+        let newSong = song
+          .split('[')
+          .map((item) => {
+            return item.indexOf(']') !== -1
+              ? '<span class="chords">' +
+                  transposeChord(item.split(']')[0], tonality) +
+                  '</span>' +
+                  item.split(']')[1]
+              : item;
+          })
+          .join('');
+        setTransposedSong(newSong);
+      }
+    };
+
     getSingleSong(songId);
     transposeSong(song.text);
   }, [getSingleSong, songId, toggleEditSong, song.text, tonality]);
@@ -51,23 +68,6 @@ const SingleSongContainer = ({
       let i = (scale.indexOf(match) + amount) % 12;
       return scale[i < 0 ? i + 12 : i];
     });
-  };
-
-  const transposeSong = (song) => {
-    if (song) {
-      let newSong = song
-        .split('[')
-        .map((item) => {
-          return item.indexOf(']') !== -1
-            ? '<span class="chords">' +
-                transposeChord(item.split(']')[0], tonality) +
-                '</span>' +
-                item.split(']')[1]
-            : item;
-        })
-        .join('');
-      setTransposedSong(newSong);
-    }
   };
 
   const editSong = (newSong) => {
@@ -108,7 +108,7 @@ const SingleSongContainer = ({
         />
       )}
 
-      {isAuth ? (
+      {isAuth && (
         <Menu
           isAuth={isAuth}
           song={song}
@@ -118,11 +118,6 @@ const SingleSongContainer = ({
           tonality={tonality}
           tonalityDown={tonalityDown}
         />
-      ) : (
-        null
-        // <Link to="/login" className="link">
-        //   Войти
-        // </Link>
       )}
     </div>
   );
