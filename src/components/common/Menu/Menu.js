@@ -27,8 +27,8 @@ const Menu = ({
   };
 
   const toggleModalForDeleting = () => {
-    setIsVisibleModalForDelete(!isVisibleModalForDelete)
-  }
+    setIsVisibleModalForDelete(!isVisibleModalForDelete);
+  };
 
   const deleteSong = () => {
     handleDeleteSong(song.id);

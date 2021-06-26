@@ -14,6 +14,7 @@ function LoginContainer({
   isPasswordError,
 }) {
   const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [hasAccount, setHasAccount] = useState(true);
 
@@ -33,7 +34,7 @@ function LoginContainer({
   };
 
   const handleSignUp = () => {
-    signup(email, password);
+    signup(email, password, name);
   };
 
   if (isAuth) {
@@ -45,6 +46,8 @@ function LoginContainer({
       <Login
         email={email}
         setEmail={setEmail}
+        name={name}
+        setName={setName}
         password={password}
         setPassword={setPassword}
         handleLogin={handleLogin}

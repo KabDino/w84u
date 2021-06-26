@@ -1,4 +1,5 @@
 import { authAPI } from '../api/auth-api';
+import { profileAPI } from '../api/api';
 
 const USER_LOGOUT = 'USER_LOGOUT';
 const USER_LOGIN = 'USER_LOGIN';
@@ -8,6 +9,7 @@ const EMAIL_ERROR = 'EMAIL_ERROR';
 const PASSWORD_ERROR = 'PASSWORD_ERROR';
 const EMAIL_TRUE = 'EMAIL_TRUE';
 const PASSWORD_TRUE = 'PASSWORD_TRUE';
+const CHANGE_NAME = 'CHANGE_NAME';
 
 let initialState = {
   id: null,
@@ -75,6 +77,12 @@ const authReducer = (state = initialState, action) => {
         isPasswordError: false,
       };
     }
+    case CHANGE_NAME: {
+      return {
+        ...state,
+        name: action.name,
+      };
+    }
     default:
       return state;
   }
@@ -119,6 +127,13 @@ const handlePasswordTrue = () => ({
   type: PASSWORD_TRUE,
 });
 
+const changeNameSuccess = (name) => {
+  return {
+    type: CHANGE_NAME,
+    name,
+  };
+};
+
 export const login = (email, password) => {
   return (dispatch) => {
     dispatch(handleEmailTrue());
@@ -127,6 +142,7 @@ export const login = (email, password) => {
       .login(email, password)
       .then((response) => {
         let uInfo = response.user;
+        console.log(uInfo);
         dispatch(userInSuccess(uInfo.uid, uInfo.displayName, uInfo.email));
       })
       .catch((err) => {
@@ -146,7 +162,7 @@ export const login = (email, password) => {
   };
 };
 
-export const signup = (email, password) => {
+export const signup = (email, password, name) => {
   return (dispatch) => {
     dispatch(handleEmailTrue());
     dispatch(handlePasswordTrue());
@@ -155,6 +171,9 @@ export const signup = (email, password) => {
       .then((response) => {
         let uInfo = response.user;
         dispatch(signupSuccess(uInfo.uid, uInfo.displayName, uInfo.email));
+        profileAPI.changeMyName(name).then(() => {
+          dispatch(changeNameSuccess(name));
+        });
       })
       .catch((err) => {
         switch (err.code) {

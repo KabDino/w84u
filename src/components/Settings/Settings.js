@@ -38,7 +38,7 @@ const Settings = ({ changeName, name }) => {
 
 let mapStateToProps = (state) => ({
   isFetching: state.mainReducer.isFetching,
-  name: state.authReducer.name,
+  name: state.profileReducer.name || state.authReducer.name,
 });
 
 // export default connect(mapStateToProps, { changeName })(
